@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: podinfod
-        image: stefanprodan/podinfo:1.3.2
+        image: stefanprodan/podinfo:1.2.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9898
@@ -36,9 +36,6 @@ spec:
         command:
         - ./podinfo
         - --port=9898
-        - --level=info
-        - --random-delay=false
-        - --random-error=false
         env:
         - name: PODINFO_UI_COLOR
           value: green
