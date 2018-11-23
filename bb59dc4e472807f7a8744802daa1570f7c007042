@@ -1,0 +1,1 @@
+{"jobID":"b80865c9-3b36-5a86-7715-9dbe6ace41f8","spec":{"type":"policy","cause":{"Message":"","User":"Stefan Prodan \u003cstefan@weave.works\u003e"},"spec":{"test:deployment/tester":{"add":null,"remove":{"automated":"true"}}}},"result":null}
