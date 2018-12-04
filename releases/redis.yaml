@@ -5,6 +5,7 @@ metadata:
   name: redis
   namespace: test
   annotations:
+    flux.weave.works/ignore: "true"
     flux.weave.works/automated: "false"
     flux.weave.works/tag.chart-image: semver:~4.0
 spec:
