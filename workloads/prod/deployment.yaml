@@ -8,7 +8,6 @@ metadata:
     app: podinfo
   annotations:
     flux.weave.works/tag.podinfod: semver:~1.4
-    flux.weave.works/automated: 'true'
 spec:
   strategy:
     rollingUpdate:
