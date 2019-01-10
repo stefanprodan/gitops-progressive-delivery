@@ -1,0 +1,1 @@
+{"jobID":"f06dacd8-594b-7115-44bb-7b628926f882","spec":{"type":"policy","cause":{"Message":"","User":"Stefan Prodan \u003cstefan@weave.works\u003e"},"spec":{"prod:deployment/podinfo":{"add":{"tag.podinfod":"semver:~1.4"},"remove":null}}},"result":null}
