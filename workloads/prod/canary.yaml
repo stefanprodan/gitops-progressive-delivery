@@ -1,4 +1,4 @@
-apiVersion: flagger.app/v1alpha1
+apiVersion: flagger.app/v1alpha2
 kind: Canary
 metadata:
   name: podinfo
