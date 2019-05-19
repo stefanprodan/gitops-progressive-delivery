@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: test
   labels:
-    istio-injection: enabled
+    appmesh.k8s.aws/sidecarInjectorWebhook: enabled

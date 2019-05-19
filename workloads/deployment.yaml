@@ -1,15 +1,14 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: podinfo
-  namespace: prod
+  namespace: test
   labels:
     app: podinfo
-  annotations:
-    flux.weave.works/tag.podinfod: semver:~1.4
-    flux.weave.works/automated: 'false'
 spec:
+  minReadySeconds: 5
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -19,14 +18,14 @@ spec:
       app: podinfo
   template:
     metadata:
-      labels:
-        app: podinfo
       annotations:
         prometheus.io/scrape: "true"
+      labels:
+        app: podinfo
     spec:
       containers:
       - name: podinfod
-        image: quay.io/stefanprodan/podinfo:1.4.1
+        image: quay.io/stefanprodan/podinfo:1.4.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9898
@@ -36,19 +35,27 @@ spec:
         - ./podinfo
         - --port=9898
         - --level=info
-        - --random-delay=false
-        - --random-error=false
         env:
         - name: PODINFO_UI_COLOR
-          value: green
+          value: blue
         livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 9898
+          exec:
+            command:
+            - podcli
+            - check
+            - http
+            - localhost:9898/healthz
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
         readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 9898
+          exec:
+            command:
+            - podcli
+            - check
+            - http
+            - localhost:9898/readyz
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
         resources:
           limits:
             cpu: 2000m

@@ -2,7 +2,7 @@ apiVersion: flagger.app/v1alpha3
 kind: Canary
 metadata:
   name: podinfo
-  namespace: prod
+  namespace: test
 spec:
   # deployment reference
   targetRef:
@@ -20,15 +20,9 @@ spec:
   service:
     # container port
     port: 9898
-    # Istio gateways (optional)
-    gateways:
-    - public-gateway.istio-system.svc.cluster.local
-    # Istio virtual service host names (optional)
-    hosts:
-    - podinfo.istio.weavedx.com
-  # for emergency cases when you want to ship changes
-  # in production without analysing the canary
-  skipAnalysis: false
+    # App Mesh reference
+    meshName: global
+  # define the canary analysis timing and KPIs
   canaryAnalysis:
     # schedule interval (default 60s)
     interval: 10s
@@ -40,21 +34,17 @@ spec:
     # canary increment step
     # percentage (0-100)
     stepWeight: 5
+    # App Mesh Prometheus checks
     metrics:
     - name: request-success-rate
       # minimum req success rate (non 5xx responses)
       # percentage (0-100)
       threshold: 99
       interval: 1m
-    - name: request-duration
-      # maximum req duration P99
-      # milliseconds
-      threshold: 500
-      interval: 30s
     # external checks (optional)
     webhooks:
       - name: load-test
         url: http://flagger-loadtester.test/
         timeout: 5s
         metadata:
-          cmd: "hey -z 1m -q 10 -c 5 http://podinfo.prod:9898/"
+          cmd: "hey -z 1m -q 10 -c 2 http://podinfo.test:9898/"
