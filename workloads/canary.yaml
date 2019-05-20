@@ -40,7 +40,7 @@ spec:
       # minimum req success rate (non 5xx responses)
       # percentage (0-100)
       threshold: 99
-      interval: 1m
+      interval: 30s
     # external checks (optional)
     webhooks:
       - name: load-test
