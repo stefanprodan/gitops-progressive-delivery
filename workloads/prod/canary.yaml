@@ -54,8 +54,15 @@ spec:
       interval: 30s
     # external checks (optional)
     webhooks:
+      - name: acceptance-test
+        type: pre-rollout
+        url: http://flagger-loadtester.prod/
+        timeout: 30s
+        metadata:
+          type: bash
+          cmd: "curl -sd 'test' http://podinfo-canary.prod:9898/token | grep token"
       - name: load-test
-        url: http://flagger-loadtester.test/
+        url: http://flagger-loadtester.prod/
         timeout: 5s
         metadata:
           cmd: "hey -z 1m -q 10 -c 5 http://podinfo.prod:9898/"
