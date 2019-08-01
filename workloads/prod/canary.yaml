@@ -4,6 +4,7 @@ metadata:
   name: podinfo
   namespace: prod
 spec:
+  provider: istio
   # deployment reference
   targetRef:
     apiVersion: apps/v1
